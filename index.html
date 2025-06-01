@@ -1,128 +1,126 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A comprehensive list of AI tools with filters for Free/Paid and categories." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Tools Directory</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
+      background: #f4f4f4;
       padding: 20px;
-      background-color: #f4f4f4;
     }
-    header {
+    h1 {
       text-align: center;
-      margin-bottom: 20px;
     }
-    .filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      justify-content: center;
+    .filter {
+      text-align: center;
+      margin: 20px 0;
     }
-    .filters label {
-      margin-right: 5px;
+    .filter button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    .tool-list {
+    .filter button.active {
+      background-color: #0056b3;
+    }
+    .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
     }
-    .tool {
+    .tool-card {
       background: white;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 15px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
     }
-    .tool img {
-      width: 50px;
-      height: 50px;
+    .tool-card img {
+      max-width: 80px;
+      height: 80px;
+      object-fit: contain;
     }
-    .tool h3 {
+    .tool-card h3 {
       margin: 10px 0 5px;
     }
-    .tool a {
+    .tool-card a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #007bff;
       text-decoration: none;
-      color: #007BFF;
-    }
-    .trend-section {
-      margin-top: 40px;
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🌍 AI Tools Directory</h1>
-    <p>Explore free and paid AI tools with ease!</p>
-  </header>  <div class="filters">
-    <input type="text" id="search" placeholder="Search AI tools...">
-    <select id="priceFilter">
-      <option value="all">All</option>
-      <option value="Free">Free</option>
-      <option value="Paid">Paid</option>
-    </select>
-    <select id="categoryFilter">
-      <option value="all">All Categories</option>
-      <option value="Text">Text</option>
-      <option value="Image">Image</option>
-      <option value="Audio">Audio</option>
-      <option value="Video">Video</option>
-    </select>
-  </div>  <div class="tool-list" id="toolList"></div>  <div class="trend-section">
-    <h2>📈 Google Trends (AI Tools)</h2>
-    <iframe src="https://trends.google.com/trends/embed/explore?q=AI%20Tools&geo=US"></iframe>
-  </div>  <script>
-    const tools = [
-      {
-        name: "ChatGPT",
-        link: "https://chat.openai.com",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-        category: "Text",
-        price: "Free"
-      },
-      {
-        name: "Midjourney",
-        link: "https://midjourney.com",
-        logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Midjourney_Logo.png",
-        category: "Image",
-        price: "Paid"
-      },
-      {
-        name: "Eleven Labs",
-        link: "https://elevenlabs.io",
-        logo: "https://avatars.githubusercontent.com/u/112299652?s=200&v=4",
-        category: "Audio",
-        price: "Paid"
-      },
-      {
-        name: "Cleanup.pictures",
-        link: "https://cleanup.pictures",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/3/35/Cleanup-pictures-logo.png",
-        category: "Image",
-        price: "Free"
+  <h1>AI Tools Directory</h1>
+  <div class="filter">
+    <button onclick="filterTools('all')" class="active">All</button>
+    <button onclick="filterTools('free')">Free</button>
+    <button onclick="filterTools('paid')">Paid</button>
+  </div>
+
+  <div class="tools-grid" id="tools-list">
+    <!-- Tool Card Start -->
+    <div class="tool-card" data-type="free">
+      <img src="https://logo.clearbit.com/chat.openai.com" alt="ChatGPT" />
+      <h3>ChatGPT</h3>
+      <p>Conversational AI by OpenAI</p>
+      <a href="https://chat.openai.com" target="_blank">Visit</a>
+    </div>
+
+    <div class="tool-card" data-type="free">
+      <img src="https://logo.clearbit.com/bard.google.com" alt="Google Bard" />
+      <h3>Google Bard</h3>
+      <p>Google's AI chat assistant</p>
+      <a href="https://bard.google.com" target="_blank">Visit</a>
+    </div>
+
+    <div class="tool-card" data-type="paid">
+      <img src="https://logo.clearbit.com/midjourney.com" alt="MidJourney" />
+      <h3>MidJourney</h3>
+      <p>AI image generation tool</p>
+      <a href="https://midjourney.com" target="_blank">Visit</a>
+    </div>
+
+    <div class="tool-card" data-type="free">
+      <img src="https://logo.clearbit.com/canva.com" alt="Canva AI" />
+      <h3>Canva AI</h3>
+      <p>Design anything with AI help</p>
+      <a href="https://www.canva.com/ai/" target="_blank">Visit</a>
+    </div>
+
+    <div class="tool-card" data-type="paid">
+      <img src="https://logo.clearbit.com/copy.ai" alt="Copy.ai" />
+      <h3>Copy.ai</h3>
+      <p>AI for content & copywriting</p>
+      <a href="https://www.copy.ai/" target="_blank">Visit</a>
+    </div>
+    <!-- Tool Card End -->
+  </div>
+
+  <script>
+    function filterTools(type) {
+      const tools = document.querySelectorAll('.tool-card');
+      const buttons = document.querySelectorAll('.filter button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      if (type === 'all') {
+        tools.forEach(tool => tool.style.display = 'block');
+        buttons[0].classList.add('active');
+      } else {
+        tools.forEach(tool => {
+          tool.style.display = tool.dataset.type === type ? 'block' : 'none';
+        });
+        document.querySelector(`.filter button[onclick="filterTools('${type}')"]`).classList.add('active');
       }
-    ];
-
-    const toolList = document.getElementById("toolList");
-    const searchInput = document.getElementById("search");
-    const priceFilter = document.getElementById("priceFilter");
-    const categoryFilter = document.getElementById("categoryFilter");
-
-    function renderTools() {
-      const searchValue = searchInput.value.toLowerCase();
-      const selectedPrice = priceFilter.value;
-      const selectedCategory = categoryFilter.value;
-
-      toolList.innerHTML = "";
-      const filtered = tools.filter(tool => {
-        const matchesSearch = tool.name.toLowerCase().includes(searchValue);
-        const matchesPrice = selectedPrice === "all" || tool.price === selectedPrice;
-        const matchesCategory = selectedCategory === "all" || tool.category
+    }
+  </script>
+</body>
+  </html>
