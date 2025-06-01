@@ -6,53 +6,68 @@
   <title>AI Tools Directory</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
       margin: 0;
-      background: #f4f4f4;
-      padding: 20px;
     }
     h1 {
       text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-    .filter {
+    .filters {
       text-align: center;
-      margin: 20px 0;
+      margin-bottom: 1.5rem;
     }
-    .filter button {
-      margin: 0 10px;
-      padding: 10px 20px;
+    .filters button {
+      margin: 0.3rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
       border: none;
-      background-color: #007bff;
-      color: white;
       border-radius: 5px;
+      background: #007bff;
+      color: white;
       cursor: pointer;
     }
-    .filter button.active {
-      background-color: #0056b3;
+    .filters button:hover {
+      background: #0056b3;
     }
-    .tools-grid {
+    #search {
+      width: 100%;
+      max-width: 500px;
+      margin: 1rem auto;
+      display: block;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .tool-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
     }
     .tool-card {
       background: white;
+      padding: 1rem;
       border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       text-align: center;
     }
     .tool-card img {
-      max-width: 80px;
-      height: 80px;
-      object-fit: contain;
+      max-width: 50px;
+      height: 50px;
     }
     .tool-card h3 {
-      margin: 10px 0 5px;
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+    .tool-card p {
+      font-size: 0.9rem;
+      color: #555;
     }
     .tool-card a {
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 0.5rem;
       color: #007bff;
       text-decoration: none;
     }
@@ -60,67 +75,70 @@
 </head>
 <body>
   <h1>AI Tools Directory</h1>
-  <div class="filter">
-    <button onclick="filterTools('all')" class="active">All</button>
-    <button onclick="filterTools('free')">Free</button>
-    <button onclick="filterTools('paid')">Paid</button>
+
+  <div class="filters">
+    <button onclick="filterTools('All')">All</button>
+    <button onclick="filterTools('Free')">Free</button>
+    <button onclick="filterTools('Paid')">Paid</button>
+    <button onclick="filterTools('Freemium')">Freemium</button>
   </div>
 
-  <div class="tools-grid" id="tools-list">
-    <!-- Tool Card Start -->
-    <div class="tool-card" data-type="free">
-      <img src="https://logo.clearbit.com/chat.openai.com" alt="ChatGPT" />
-      <h3>ChatGPT</h3>
-      <p>Conversational AI by OpenAI</p>
-      <a href="https://chat.openai.com" target="_blank">Visit</a>
-    </div>
+  <input type="text" id="search" placeholder="Search tools..." onkeyup="searchTools()"/>
 
-    <div class="tool-card" data-type="free">
-      <img src="https://logo.clearbit.com/bard.google.com" alt="Google Bard" />
-      <h3>Google Bard</h3>
-      <p>Google's AI chat assistant</p>
-      <a href="https://bard.google.com" target="_blank">Visit</a>
-    </div>
-
-    <div class="tool-card" data-type="paid">
-      <img src="https://logo.clearbit.com/midjourney.com" alt="MidJourney" />
-      <h3>MidJourney</h3>
-      <p>AI image generation tool</p>
-      <a href="https://midjourney.com" target="_blank">Visit</a>
-    </div>
-
-    <div class="tool-card" data-type="free">
-      <img src="https://logo.clearbit.com/canva.com" alt="Canva AI" />
-      <h3>Canva AI</h3>
-      <p>Design anything with AI help</p>
-      <a href="https://www.canva.com/ai/" target="_blank">Visit</a>
-    </div>
-
-    <div class="tool-card" data-type="paid">
-      <img src="https://logo.clearbit.com/copy.ai" alt="Copy.ai" />
-      <h3>Copy.ai</h3>
-      <p>AI for content & copywriting</p>
-      <a href="https://www.copy.ai/" target="_blank">Visit</a>
-    </div>
-    <!-- Tool Card End -->
+  <div class="tool-grid" id="tools">
+    <!-- Tools will be injected here -->
   </div>
 
   <script>
-    function filterTools(type) {
-      const tools = document.querySelectorAll('.tool-card');
-      const buttons = document.querySelectorAll('.filter button');
-      buttons.forEach(btn => btn.classList.remove('active'));
+    const tools = [];
 
-      if (type === 'all') {
-        tools.forEach(tool => tool.style.display = 'block');
-        buttons[0].classList.add('active');
+    // Add 100 AI tools dynamically
+    for (let i = 1; i <= 100; i++) {
+      tools.push({
+        name: i === 1 ? "ChatGPT" : i === 2 ? "Canva AI" : i === 3 ? "Copy.ai" : `AI Tool ${i}`,
+        logo: i === 1 ? "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+             : i === 2 ? "https://upload.wikimedia.org/wikipedia/commons/4/4e/Canva_Logo.png"
+             : i === 3 ? "https://assets.copy.ai/favicon.ico"
+             : `https://via.placeholder.com/50?text=AI${i}`,
+        desc: i === 1 ? "AI chatbot by OpenAI for text generation and Q&A."
+             : i === 2 ? "Design platform with AI tools for content creation."
+             : i === 3 ? "AI content writer for emails, blogs, and ads."
+             : `Description for AI Tool ${i}`,
+        link: i === 1 ? "https://chat.openai.com/"
+              : i === 2 ? "https://www.canva.com/"
+              : i === 3 ? "https://www.copy.ai/"
+              : `https://example.com/ai-tool-${i}`,
+        type: i % 3 === 0 ? "Free" : i % 3 === 1 ? "Paid" : "Freemium"
+      });
+    }
+
+    const toolsContainer = document.getElementById("tools");
+
+    function renderTools(toolsToRender) {
+      toolsContainer.innerHTML = toolsToRender.map(tool => `
+        <div class="tool-card" data-type="${tool.type}">
+          <img src="${tool.logo}" alt="${tool.name}" />
+          <h3>${tool.name}</h3>
+          <p>${tool.desc}</p>
+          <a href="${tool.link}" target="_blank">Visit Tool</a>
+        </div>
+      `).join("");
+    }
+
+    function filterTools(type) {
+      if (type === 'All') {
+        renderTools(tools);
       } else {
-        tools.forEach(tool => {
-          tool.style.display = tool.dataset.type === type ? 'block' : 'none';
-        });
-        document.querySelector(`.filter button[onclick="filterTools('${type}')"]`).classList.add('active');
+        renderTools(tools.filter(t => t.type === type));
       }
     }
+
+    function searchTools() {
+      const term = document.getElementById("search").value.toLowerCase();
+      renderTools(tools.filter(t => t.name.toLowerCase().includes(term)));
+    }
+
+    renderTools(tools);
   </script>
 </body>
-  </html>
+</html>
