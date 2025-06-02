@@ -141,4 +141,28 @@
     renderTools(tools);
   </script>
 </body>
-</html>
+</html><script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  });
+
+  document.querySelectorAll('.tool-card').forEach(card => {
+    observer.observe(card);
+  });
+</script>
+
+<style>
+  .tool-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-in-out;
+  }
+  .tool-card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
