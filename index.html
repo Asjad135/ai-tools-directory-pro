@@ -165,4 +165,120 @@
     opacity: 1;
     transform: translateY(0);
   }
-</style>
+</style><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Milkeyera - AI Tools Directory</title>
+  <meta name="description" content="Milkeyera - Discover 100+ best AI tools with logo, description, link and filters.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <style>
+    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    body {{ font-family: 'Inter', sans-serif; background: #f4f6f8; color: #111827; }}
+    header {{
+      background: #111827; color: white; padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+    }}
+    header h1 {{ font-size: 24px; }}
+    nav a {{ color: white; margin-left: 20px; text-decoration: none; }}
+    .filters {{ padding: 20px; background: white; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }}
+    input, select {{
+      padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px;
+      width: 250px;
+    }}
+    .tools {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding: 30px; }}
+    .tool {{
+      background: white; padding: 20px; border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;
+    }}
+    .tool img {{ width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; }}
+    .tool h3 {{ font-size: 18px; margin-bottom: 5px; }}
+    .tool p {{ font-size: 14px; color: #555; }}
+    .tool a {{
+      display: inline-block; margin-top: 10px;
+      text-decoration: none; color: #2563eb; font-weight: bold;
+    }}
+    footer {{ text-align: center; padding: 20px; background: #111827; color: white; margin-top: 40px; }}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Milkeyera</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Suggest Tool</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<div class="filters">
+  <input type="text" id="search" placeholder="Search AI Tools...">
+  <select id="typeFilter">
+    <option value="">All Types</option>
+    <option value="free">Free</option>
+    <option value="paid">Paid</option>
+  </select>
+</div>
+
+<div class="tools" id="toolsContainer">
+  <!-- Tool Cards Injected by JS -->
+</div>
+
+<footer>
+  <p>© 2025 Milkeyera.com — All rights reserved.</p>
+</footer>
+
+<script>
+  const tools = Array.from({ length: 100 }, (_, i) => ({
+    name: `AI Tool ${i + 1}`,
+    logo: "https://via.placeholder.com/60",
+    description: `This is AI Tool ${i + 1}, which helps you with smart automation.`,
+    url: "#",
+    type: i % 2 === 0 ? "free" : "paid"
+  }));
+
+  const container = document.getElementById("toolsContainer");
+
+  function render(toolsList) {
+    container.innerHTML = "";
+    toolsList.forEach(tool => {
+      const div = document.createElement("div");
+      div.className = "tool";
+      div.innerHTML = `
+        <img src="${tool.logo}" alt="${tool.name} logo">
+        <h3>${tool.name}</h3>
+        <p>${tool.description}</p>
+        <a href="${tool.url}" target="_blank">Visit Tool</a>
+      `;
+      container.appendChild(div);
+    });
+
+    ScrollReveal().reveal(".tool", {
+      interval: 100,
+      distance: "20px",
+      origin: "bottom",
+      duration: 800,
+      easing: "ease-in-out"
+    });
+  }
+
+  document.getElementById("search").addEventListener("input", function() {
+    const keyword = this.value.toLowerCase();
+    const filtered = tools.filter(t => t.name.toLowerCase().includes(keyword));
+    render(filtered);
+  });
+
+  document.getElementById("typeFilter").addEventListener("change", function() {
+    const type = this.value;
+    const filtered = type ? tools.filter(t => t.type === type) : tools;
+    render(filtered);
+  });
+
+  render(tools);
+</script>
+
+</body>
+</html>
